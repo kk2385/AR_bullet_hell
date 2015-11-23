@@ -9,12 +9,16 @@ void setup() {
 
 void draw() {
   background(0);
-  for (int i = 0; i < bullets.size(); i++) {
-    bullets.get(i).moveAndDraw();
-  }
+  moveBullets();
   System.out.println(bullets.size());
 }
 
+void moveBullets() {
+  for (int i = 0; i < bullets.size(); i++) {
+    bullets.get(i).moveAndDraw();
+  }
+}
+
 void mouseClicked() {
-  bullets.add(new Bullet(mouseX, mouseY));
+  bullets.add(new CircularBullet(mouseX, mouseY));
 }
