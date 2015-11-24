@@ -25,5 +25,4 @@ class Bullet {
     if (yPos >= width || yPos <= 0) ySpeed *= -1;
   }
   
-  
 }
