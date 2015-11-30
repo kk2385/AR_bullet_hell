@@ -27,6 +27,7 @@ class CircularBullet extends Bullet {
     yPos = y+centerY;
     ellipse(xPos, yPos, 20, 20); 
     hp--;
+    invincibility--;
 
     theta += 0.02;
     r += 0.7;

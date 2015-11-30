@@ -7,6 +7,7 @@ class Player {
   float radius = 20;
   ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   int myFrame = 0;
+  int health = 1000;
 
   Player() {
     setCoordinatesToMouse();
@@ -17,7 +18,11 @@ class Player {
     removeDeadBullets();
     drawPlayer();
     drawBullets();
+    checkBulletCollision();
     myFrame = (myFrame+1) % 10000;
+    fill(255);
+    textSize(15);
+    text("Health: " + health, xPos, yPos);
   }
 
   void drawPlayer() {
@@ -51,6 +56,18 @@ class Player {
     }
   }
 
+
+  void checkBulletCollision() {
+    for (int i = 0; i < bullets.size(); i++) {
+      Bullet curr = bullets.get(i);
+      if (dist(xPos, yPos, curr.xPos, curr.yPos) <= radius && !curr.isInvincible()) {
+        bullets.remove(curr);
+        health--;
+      }
+    }
+  }
+  
+  
   void setCoordinatesToMouse() {
     xPos = mouseX;
     yPos = mouseY;

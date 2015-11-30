@@ -1,10 +1,10 @@
-int SCREEN_WIDTH = 500;
-int SCREEN_HEIGHT = 500;
+int SCREEN_WIDTH = 640;
+int SCREEN_HEIGHT = 480;
 ArrayList<Bullet> bullets;
 Player player;
 
 void setup() {
-  size(SCREEN_WIDTH, SCREEN_HEIGHT);
+  size(640, 480, OPENGL);
   player = new Player();
   bullets = new ArrayList<Bullet>();
 }
