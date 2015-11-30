@@ -21,7 +21,7 @@ class CircularBullet extends Bullet {
     float x = (r + offset) * cos(theta);
     float y = (r + offset) * sin(theta);
     noStroke();
-    float alpha = map(hp, 0, 500, 0, 255);
+    float alpha = map(hp, 0, 500, 0, 255); //transparency
     fill(255, alpha);
     xPos = x+centerX;
     yPos = y+centerY;
