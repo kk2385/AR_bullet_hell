@@ -4,6 +4,7 @@ class Bullet {
   float yPos;
   float xSpeed;
   float ySpeed;
+  float hp;
   String mode = "default"; //i feel like there will be differnet kinds of bullets
   
   Bullet(float _xPos, float _yPos) {
@@ -11,6 +12,7 @@ class Bullet {
     yPos = _yPos;
     xSpeed = 1;
     ySpeed = 1;
+    hp = 10;
   }
   
   
