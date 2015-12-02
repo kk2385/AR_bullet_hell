@@ -1,5 +1,5 @@
 class Bullet {
-
+  float SPEED = 6;
   float xPos;
   float yPos;
   float xSpeed;
@@ -11,8 +11,8 @@ class Bullet {
   Bullet(float _xPos, float _yPos) {
     xPos = _xPos;
     yPos = _yPos;
-    xSpeed = 5 * random(0,100) > 50? 1 : -1;
-    ySpeed = 5 * random(0,100) > 50? 1 : -1;
+    xSpeed = SPEED * random(0,100) > 50? 1 : -1;
+    ySpeed = SPEED * random(0,100) > 50? 1 : -1;
     invincibility = 30;
     hp = 600;
   }

@@ -27,7 +27,6 @@ class Player {
 
   void drawPlayer() {
     fill(255);
-    setCoordinatesToMouse();
     float r = radius;
     triangle(xPos-r, yPos+r, xPos, yPos-r, xPos+r, yPos+r);
   }
@@ -67,10 +66,14 @@ class Player {
     }
   }
   
-  
   void setCoordinatesToMouse() {
     xPos = mouseX;
     yPos = mouseY;
   }
+  
+  void setCoordinatesTo(float x, float y) {
+    xPos = x;
+    yPos = y;
+  } 
 }
 

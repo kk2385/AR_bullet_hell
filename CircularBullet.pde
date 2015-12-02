@@ -9,6 +9,8 @@ class CircularBullet extends Bullet {
   float r = 0;
   float theta = 0;
   float offset = .5;
+  float spinSpeed = 0.05;
+  float radiusSpeed = 0.7;
   
   CircularBullet(float _xPos, float _yPos) {
     super(_xPos, _yPos);
@@ -29,8 +31,8 @@ class CircularBullet extends Bullet {
     hp--;
     invincibility--;
 
-    theta += 0.02;
-    r += 0.7;
+    theta += spinSpeed;
+    r += radiusSpeed;
   }
 }
 
