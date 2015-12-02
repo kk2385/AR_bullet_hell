@@ -33,6 +33,7 @@ void setup() {
   augmentedRealityMarkers.addARMarker("patt.hiro", 80);
   
   player = new Player();
+  noCursor();
   bullets = new ArrayList<Bullet>();
 }
 
