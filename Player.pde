@@ -15,12 +15,12 @@ class Player {
     setCoordinatesToMouse();
   }
 
-  void moveAndDraw() {
-    updateBullets();
-    removeDeadBullets();
+  void moveAndDraw(ArrayList<Bullet> bullets) {
+    //updateBullets();
+    //removeDeadBullets();
     drawPlayer();
-    drawBullets();
-    checkBulletCollision();
+    //drawBullets();
+    checkBulletCollision(bullets);
     myFrame = (myFrame+1) % 10000;
     fill(255);
     textSize(15);
@@ -53,6 +53,7 @@ class Player {
       bullets.get(i).moveAndDraw();
     }
   }
+
   
   void removeDeadBullets() {
     for (int i = 0; i < bullets.size(); i++) {
@@ -64,7 +65,8 @@ class Player {
   }
 
 
-  void checkBulletCollision() {
+  void checkBulletCollision(ArrayList<Bullet> bullets) {
+    
     for (int i = 0; i < bullets.size(); i++) {
       Bullet curr = bullets.get(i);
       if (dist(xPos, yPos, curr.xPos, curr.yPos) <= radius && !curr.isInvincible()) {
