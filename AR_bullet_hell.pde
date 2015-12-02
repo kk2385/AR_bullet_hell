@@ -41,7 +41,11 @@ void draw() {
   if (video.available()) {
     background(0);
     drawVideoToScreen();
-    doARStuff();
+    if (hasMarker()) {
+      doARStuff();
+    } else {
+      showNoMarkersDetected();
+    }
     //System.out.println(bullets.size());
   }
 }
@@ -68,6 +72,23 @@ void doARStuff() {
     }
 }
 
+
+boolean hasMarker() {
+  try {
+      augmentedRealityMarkers.detect(video);
+      // if they exists then we will be given information about their location
+      // note that we only have one pattern that we are looking for, so it will be pattern 0
+      return augmentedRealityMarkers.isExistMarker(0);
+    }
+    catch (Exception e) {
+      println("Issue with AR detection ... resuming regular operation ..");
+      println(e.toString());
+    }
+    return false;
+}
+
+
+
 void drawVideoToScreen() {
     video.read();
     imageMode(CORNER);
@@ -80,6 +101,14 @@ void moveBullets() {
   for (int i = 0; i < bullets.size(); i++) {
     bullets.get(i).moveAndDraw();
   }
+}
+
+
+void showNoMarkersDetected() {
+  textAlign(CENTER);
+  fill(255);
+  text("No Markers Detected", width/2, height/2);
+
 }
 
 void mouseClicked() {

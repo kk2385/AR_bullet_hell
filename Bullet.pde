@@ -7,6 +7,7 @@ class Bullet {
   float hp; //a bullet with hp of 0 will disappear.
   float invincibility; //an invincible wallet can't do damage. When a bullet spawns it is invincible for a short time.
   String mode = "default"; //i feel like there will be differnet kinds of bullets
+  int spawner;
   
   Bullet(float _xPos, float _yPos) {
     xPos = _xPos;
@@ -29,6 +30,10 @@ class Bullet {
     if (yPos >= width || yPos <= 0) ySpeed *= -1;
     hp--;
     invincibility--;
+  }
+  
+  void setSpawner(int code) {
+    spawner = code;
   }
   
   boolean isInvincible() {
