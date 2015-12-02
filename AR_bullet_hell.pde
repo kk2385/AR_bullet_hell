@@ -6,6 +6,7 @@ Player player;
 void setup() {
   size(640, 480, OPENGL);
   player = new Player();
+  noCursor();
   bullets = new ArrayList<Bullet>();
 }
 

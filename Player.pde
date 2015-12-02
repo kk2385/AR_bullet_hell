@@ -2,6 +2,7 @@
  *         tasked with avoiding them at the same time.
  */
 class Player {
+  PImage playerImage;
   float xPos;
   float yPos;
   float radius = 20;
@@ -10,6 +11,7 @@ class Player {
   int health = 1000;
 
   Player() {
+    playerImage = loadImage("data/flyingPikachu.png");
     setCoordinatesToMouse();
   }
 
@@ -29,7 +31,12 @@ class Player {
     fill(255);
     setCoordinatesToMouse();
     float r = radius;
-    triangle(xPos-r, yPos+r, xPos, yPos-r, xPos+r, yPos+r);
+    imageMode(CENTER);
+    image(playerImage, xPos, yPos);
+//    fill(0, 255, 0, 50);
+//    triangle(xPos-r, yPos+r, xPos, yPos-r, xPos+r, yPos+r);
+    fill(255, 0, 0);
+    ellipse(xPos, yPos, radius, radius);
   }
 
   void updateBullets() {
