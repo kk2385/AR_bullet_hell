@@ -40,13 +40,13 @@ void setup() {
 }
 
 void draw() {
-<<<<<<< HEAD
+
   background(0);
   bullets = generator.move();
   player.moveAndDraw(bullets);
   moveBullets();
   //System.out.println(bullets.size());
-=======
+
   if (video.available()) {
     background(0);
     drawVideoToScreen();
@@ -72,7 +72,7 @@ void doARStuff() {
         float x = (marker1[0].x + marker1[1].x + marker1[2].x + marker1[3].x)/4;
         float y = (marker1[0].y + marker1[1].y + marker1[2].y + marker1[3].y)/4;
         player.setCoordinatesTo(x, y);
-        player.moveAndDraw();
+        player.moveAndDraw(bullets);
       }
     }
     catch (Exception e) {
@@ -104,7 +104,7 @@ void drawVideoToScreen() {
     tint(255, 30);
     image(video, 0, 0);
     tint(255, 255, 255, 255);
->>>>>>> a4235697d2ac3268216123611ec4c72def16559f
+
 }
 
 void moveBullets() {
