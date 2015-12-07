@@ -10,6 +10,7 @@ Capture video;
 
 // AR marker object - this keeps track of all of the patterns you wish to look for
 MultiMarker augmentedRealityMarkers;
+int totalImages = 2;
 
 int SCREEN_WIDTH = 640;
 int SCREEN_HEIGHT = 480;
@@ -34,7 +35,13 @@ void setup() {
   // attach the pattern you wish to track to this marker.  this file also needs to be in the data folder
   // 80 is the width of the pattern
   augmentedRealityMarkers.addARMarker("patt.hiro", 80);
+<<<<<<< HEAD
   augmentedRealityMarkers2.addARMarker("patt.hiro", 80);
+=======
+  for (int i = 1; i <= totalImages; i++) { 
+    augmentedRealityMarkers.addARMarker(loadImage("4x4_384_" + i + ".gif"), 16, 25, 80);
+  }
+>>>>>>> 36a8f52b36e4d3b1922338ce5a78829f69d48d62
   
   player = new Player("data/flyingPikachu.png");
   player2 = new Player("data/flyingPikachu.png");
