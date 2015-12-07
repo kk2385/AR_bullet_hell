@@ -40,18 +40,17 @@ void setup() {
 }
 
 void draw() {
-
-  background(0);
-  bullets = generator.move();
-  player.moveAndDraw(bullets);
-  moveBullets();
   //System.out.println(bullets.size());
 
   if (video.available()) {
     background(0);
     drawVideoToScreen();
     if (hasMarker()) {
+      bullets = generator.move();
+      player.moveAndDraw(bullets);
+      moveBullets();
       doARStuff();
+      
     } else {
       showNoMarkersDetected();
     }
