@@ -10,7 +10,6 @@ Capture video;
 
 // AR marker object - this keeps track of all of the patterns you wish to look for
 MultiMarker augmentedRealityMarkers;
-MultiMarker augmentedRealityMarkers2;
 
 int SCREEN_WIDTH = 640;
 int SCREEN_HEIGHT = 480;
@@ -30,15 +29,14 @@ void setup() {
   // note that "camera_para.dat" has to be in the data folder of your sketch
   // this is used to correct for distortions in your webcam
   augmentedRealityMarkers = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
-  augmentedRealityMarkers2 = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
 
   // attach the pattern you wish to track to this marker.  this file also needs to be in the data folder
   // 80 is the width of the pattern
-  augmentedRealityMarkers.addARMarker("a.gif", 80);
-  augmentedRealityMarkers2.addARMarker("patt.hiro", 80);
+  augmentedRealityMarkers.addARMarker(loadImage("b.gif"), 16, 25, 80);
+  augmentedRealityMarkers.addARMarker(loadImage("a.gif"), 16, 25, 80);
   
-  player = new Player("data/flyingPikachu.png");
-  player2 = new Player("data/flyingPikachu.png");
+  player = new Player("flyingPikachu.png");
+  player2 = new Player("flyingPikachu.png");
   generator = new BulletGenerator(width/2, height/2);
   noCursor();
   bullets = new ArrayList<Bullet>();
@@ -52,10 +50,10 @@ void draw() {
     drawVideoToScreen();
     if (hasMarker()) {
       bullets = generator.move();
-      if(augmentedRealityMarkers.isExistMarker(0))  player.moveAndDraw(bullets);
-      if(augmentedRealityMarkers2.isExistMarker(0))  player2.moveAndDraw(bullets);
+      if (augmentedRealityMarkers.isExistMarker(0))  doARStuff(player, 0);
+      if (augmentedRealityMarkers.isExistMarker(1))  doARStuff(player2, 1);
       moveBullets();
-      doARStuff();
+//      doARStuff();
       
     } else {
       showNoMarkersDetected();
@@ -64,16 +62,16 @@ void draw() {
   }
 }
 
-void doARStuff() {
+void doARStuff(Player player, int id) {
   try {
       augmentedRealityMarkers.detect(video);
 
       // if they exists then we will be given information about their location
       // note that we only have one pattern that we are looking for, so it will be pattern 0
-      if (augmentedRealityMarkers.isExistMarker(0))
+      if (augmentedRealityMarkers.isExistMarker(id))
       {
         //get its coordinates
-        PVector[] marker1 = augmentedRealityMarkers.getMarkerVertex2D(0);
+        PVector[] marker1 = augmentedRealityMarkers.getMarkerVertex2D(id);
         float x = (marker1[0].x + marker1[1].x + marker1[2].x + marker1[3].x)/4;
         float y = (marker1[0].y + marker1[1].y + marker1[2].y + marker1[3].y)/4;
         player.setCoordinatesTo(x, y);
@@ -90,10 +88,9 @@ void doARStuff() {
 boolean hasMarker() {
   try {
       augmentedRealityMarkers.detect(video);
-      augmentedRealityMarkers2.detect(video);
       // if they exists then we will be given information about their location
       // note that we only have one pattern that we are looking for, so it will be pattern 0
-      return augmentedRealityMarkers.isExistMarker(0) || augmentedRealityMarkers2.isExistMarker(0);
+      return augmentedRealityMarkers.isExistMarker(0) || augmentedRealityMarkers.isExistMarker(1);
     }
     catch (Exception e) {
       println("Issue with AR detection ... resuming regular operation ..");

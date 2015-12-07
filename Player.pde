@@ -2,6 +2,7 @@
  *         tasked with avoiding them at the same time.
  */
 class Player {
+  int id;
   PImage playerImage;
   float xPos;
   float yPos;
@@ -10,8 +11,13 @@ class Player {
   int myFrame = 0;
   int health = 1000;
 
-  Player(String imageDirectory) {
-    playerImage = loadImage(imageDirectory);
+  Player(String imgName) {
+    playerImage = loadImage(imgName);
+    setCoordinatesToMouse();
+  }
+  
+  Player() {
+    playerImage = loadImage("data/flyingPikachu.png");
     setCoordinatesToMouse();
   }
 
