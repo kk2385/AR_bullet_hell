@@ -15,6 +15,7 @@ int SCREEN_WIDTH = 640;
 int SCREEN_HEIGHT = 480;
 ArrayList<Bullet> bullets;
 Player player;
+Player player2;
 BulletGenerator generator;
 
 void setup() {
@@ -28,12 +29,15 @@ void setup() {
   // note that "camera_para.dat" has to be in the data folder of your sketch
   // this is used to correct for distortions in your webcam
   augmentedRealityMarkers = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
+  augmentedRealityMarkers2 = new MultiMarker(this, width, height, "camera_para.dat", NyAR4PsgConfig.CONFIG_PSG);
 
   // attach the pattern you wish to track to this marker.  this file also needs to be in the data folder
   // 80 is the width of the pattern
   augmentedRealityMarkers.addARMarker("patt.hiro", 80);
+  augmentedRealityMarkers2.addARMarker("patt.hiro", 80);
   
-  player = new Player();
+  player = new Player("data/flyingPikachu.png");
+  player2 = new Player("data/flyingPikachu.png");
   generator = new BulletGenerator(width/2, height/2);
   noCursor();
   bullets = new ArrayList<Bullet>();
@@ -47,7 +51,8 @@ void draw() {
     drawVideoToScreen();
     if (hasMarker()) {
       bullets = generator.move();
-      player.moveAndDraw(bullets);
+      if(augmentedRealityMarkers.isExistMarker(0))  player.moveAndDraw(bullets);
+      if(augmentedRealityMarkers2.isExistMarker(0))  player2.moveAndDraw(bullets);
       moveBullets();
       doARStuff();
       
@@ -84,9 +89,10 @@ void doARStuff() {
 boolean hasMarker() {
   try {
       augmentedRealityMarkers.detect(video);
+      augmentedRealityMarkers2.detect(video);
       // if they exists then we will be given information about their location
       // note that we only have one pattern that we are looking for, so it will be pattern 0
-      return augmentedRealityMarkers.isExistMarker(0);
+      return augmentedRealityMarkers.isExistMarker(0) || augmentedRealityMarkers2.isExistMarker(0);
     }
     catch (Exception e) {
       println("Issue with AR detection ... resuming regular operation ..");

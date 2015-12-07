@@ -10,8 +10,8 @@ class Player {
   int myFrame = 0;
   int health = 1000;
 
-  Player() {
-    playerImage = loadImage("data/flyingPikachu.png");
+  Player(String imageDirectory) {
+    playerImage = loadImage(imageDirectory);
     setCoordinatesToMouse();
   }
 
