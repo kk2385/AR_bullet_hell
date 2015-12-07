@@ -34,8 +34,8 @@ void setup() {
 
   // attach the pattern you wish to track to this marker.  this file also needs to be in the data folder
   // 80 is the width of the pattern
-  augmentedRealityMarkers.addARMarker("patt.hiro", 80);
-  augmentedRealityMarkers2.addARMarker("patt.hiro", 80);
+  augmentedRealityMarkers.addARMarker("4x4_384_1.gif", 80);
+  augmentedRealityMarkers2.addARMarker("4x4_384_2.gif", 80);
   
   player = new Player("data/flyingPikachu.png");
   player2 = new Player("data/flyingPikachu.png");
