@@ -39,7 +39,7 @@ class Player {
   
   void drawHealthPool(){
     fill(id * 100, 200/id, 200);
-    rect(10, id * 30, (float)health/15 * 100, 20);
+    rect(xPos+10, yPos+30, (float)health/15 * 100, 20);
   }
 
   void drawPlayer() {

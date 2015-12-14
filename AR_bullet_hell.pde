@@ -59,13 +59,16 @@ void draw() {
     background(0);
     drawVideoToScreen();
     bullets = generator.move(); //REMOVED THIS FROM hasMarker requirement to make the game constantly progress even when no markers are present
-    player.drawHealthPool();
-    player2.drawHealthPool();
     if (hasMarker()) {
-      if (augmentedRealityMarkers.isExistMarker(0))  
+      if (augmentedRealityMarkers.isExistMarker(0))  {
+        player.drawHealthPool(); 
         doARStuff(player, 0);
-      if (augmentedRealityMarkers.isExistMarker(1))  
+      }  
+      if (augmentedRealityMarkers.isExistMarker(1)) {
+        player2.drawHealthPool();
         doARStuff(player2, 1);
+      } 
+         
       moveBullets();
 //      doARStuff();
       
@@ -131,6 +134,13 @@ void endScreen() {
     text("Player "+ player.id + " has lost!", width/2, player.id * 20);
   else
     text("Player "+ player2.id + " has lost!", width/2, player2.id * 20);
+    
+   text("PRESS ANY KEY TO RESTART GAME", width/2, height/2);
+
+   if (keyPressed) {
+     player.health = 15;
+     player2.health = 15;
+   }
 }
 
 void moveBullets() {
