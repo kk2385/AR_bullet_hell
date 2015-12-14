@@ -18,7 +18,7 @@ class Player {
     playerImage = loadImage(imgName);
     setCoordinatesToMouse();
   }
-  
+
   Player() {
     playerImage = loadImage("data/flyingPikachu.png");
     setCoordinatesToMouse();
@@ -28,16 +28,16 @@ class Player {
     //updateBullets();
     //removeDeadBullets();
     drawPlayer();
-//    drawHealthPool();
+    //    drawHealthPool();
     //drawBullets();
     checkBulletCollision(bullets);
     myFrame = (myFrame+1) % 10000;
     fill(255);
     textSize(15);
-//    text("Health: " + health, xPos, yPos); //HEALTH SHOWN AS TEXT UNDER THE PIKACHU
+    //    text("Health: " + health, xPos, yPos); //HEALTH SHOWN AS TEXT UNDER THE PIKACHU
   }
-  
-  void drawHealthPool(){
+
+  void drawHealthPool() {
     fill(id * 100, 200/id, 200);
     rect(xPos+10, yPos+30, (float)health/15 * 100, 20);
   }
@@ -47,17 +47,17 @@ class Player {
     float r = radius;
     imageMode(CENTER);
     image(playerImage, xPos, yPos);
-//    fill(0, 255, 0, 50);
-//    triangle(xPos-r, yPos+r, xPos, yPos-r, xPos+r, yPos+r);
+    //    fill(0, 255, 0, 50);
+    //    triangle(xPos-r, yPos+r, xPos, yPos-r, xPos+r, yPos+r);
     fill(255, 0, 0);
-//    ellipse(xPos, yPos, radius, radius);
+    //    ellipse(xPos, yPos, radius, radius);
   }
-  
-  boolean checkLoss(){
-    if(this.health <= 0)
+
+  boolean checkLoss() {
+    if (this.health <= 0)
       return true;
-     else
-       return false;
+    else
+      return false;
   }
 
   void updateBullets() {
@@ -68,16 +68,16 @@ class Player {
       bullets.add(new CircularBullet(xPos, yPos));
     }
   }
-  
+
   void drawBullets() {
-    for (int i = 0; i < bullets.size(); i++) {
+    for (int i = 0; i < bullets.size (); i++) {
       bullets.get(i).moveAndDraw();
     }
   }
 
-  
+
   void removeDeadBullets() {
-    for (int i = 0; i < bullets.size(); i++) {
+    for (int i = 0; i < bullets.size (); i++) {
       Bullet curr = bullets.get(i);
       if (curr.hp <= 0) {
         bullets.remove(curr);
@@ -87,24 +87,26 @@ class Player {
 
 
   void checkBulletCollision(ArrayList<Bullet> bullets) {
-    
-    for (int i = 0; i < bullets.size(); i++) {
+
+    for (int i = 0; i < bullets.size (); i++) {
       Bullet curr = bullets.get(i);
       if (dist(xPos, yPos, curr.xPos, curr.yPos) <= radius && !curr.isInvincible()) {
+        audioplayer.rewind();
+        audioplayer.play();
         bullets.remove(curr);
         health--;
       }
     }
   }
-  
+
   void setCoordinatesToMouse() {//RECORDS THE COORDINATES OF THE GO-TO POINT FOR PIKACHUS
     xPos = mouseX;
     yPos = mouseY;
   }
-  
+
   void setCoordinatesTo(float x, float y) {
     xPos = x;
     yPos = y;
-  } 
+  }
 }
 

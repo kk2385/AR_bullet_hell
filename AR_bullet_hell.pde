@@ -4,6 +4,14 @@ import processing.video.*;
 // AR library - find the 'NyAR4psg' folder that came with today's downloadable
 // code package and put it into the 'libraries' folder of your Processing sketchbook
 import jp.nyatla.nyar4psg.*;
+import ddf.minim.*;
+
+// main audio controller - we need one of these variables
+Minim minim;
+
+// audio files - we need one of these for each sound we want to play
+AudioPlayer audioplayer;
+
 
 // video object
 Capture video;
@@ -25,6 +33,12 @@ BulletGenerator generator;
 
 void setup() {
   size(640, 480, OPENGL);
+  
+   // set up Minim  
+  minim = new Minim(this);
+
+  // load in our audio file
+  audioplayer = minim.loadFile("punch.mp3");
   
   // create our video object
   video = new Capture(this, 640, 480);
