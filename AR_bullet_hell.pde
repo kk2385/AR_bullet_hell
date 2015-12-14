@@ -18,6 +18,11 @@ Player player;
 Player player2;
 BulletGenerator generator;
 
+//NOTE ABOUT MARKERS
+//Marker detection seems to be almost 100% accurate when the markers themselves are very well-lit
+//considering using phones with markers as marker "wands"
+
+
 void setup() {
   size(640, 480, OPENGL);
   
@@ -35,8 +40,8 @@ void setup() {
   augmentedRealityMarkers.addARMarker("patt.hiro", 80);
   augmentedRealityMarkers.addARMarker(loadImage("a.gif"), 16, 25, 80);
   
-  player = new Player("flyingPikachu.png");
-  player2 = new Player("flyingPikachu.png");
+  player = new Player("flyingPikachu.png", 1);
+  player2 = new Player("Patamon.png", 2);
   generator = new BulletGenerator(width/2, height/2);
   noCursor();
   bullets = new ArrayList<Bullet>();
@@ -44,14 +49,23 @@ void setup() {
 
 void draw() {
   //System.out.println(bullets.size());
+  
+  if(player.checkLoss() || player2.checkLoss()){
+    endScreen();
+  }
+  else {
 
   if (video.available()) {
     background(0);
     drawVideoToScreen();
+    bullets = generator.move(); //REMOVED THIS FROM hasMarker requirement to make the game constantly progress even when no markers are present
+    player.drawHealthPool();
+    player2.drawHealthPool();
     if (hasMarker()) {
-      bullets = generator.move();
-      if (augmentedRealityMarkers.isExistMarker(0))  doARStuff(player, 0);
-      if (augmentedRealityMarkers.isExistMarker(1))  doARStuff(player2, 1);
+      if (augmentedRealityMarkers.isExistMarker(0))  
+        doARStuff(player, 0);
+      if (augmentedRealityMarkers.isExistMarker(1))  
+        doARStuff(player2, 1);
       moveBullets();
 //      doARStuff();
       
@@ -59,6 +73,7 @@ void draw() {
       showNoMarkersDetected();
     }
     //System.out.println(bullets.size());
+  }
   }
 }
 
@@ -85,6 +100,7 @@ void doARStuff(Player player, int id) {
 }
 
 
+
 boolean hasMarker() {
   try {
       augmentedRealityMarkers.detect(video);
@@ -100,7 +116,6 @@ boolean hasMarker() {
 }
 
 
-
 void drawVideoToScreen() {
     video.read();
     imageMode(CORNER);
@@ -108,6 +123,14 @@ void drawVideoToScreen() {
     image(video, 0, 0);
     tint(255, 255, 255, 255);
 
+}
+
+void endScreen() {
+  background(0);
+  if(player.checkLoss())
+    text("Player "+ player.id + " has lost!", width/2, player.id * 20);
+  else
+    text("Player "+ player2.id + " has lost!", width/2, player2.id * 20);
 }
 
 void moveBullets() {

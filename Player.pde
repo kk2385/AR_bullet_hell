@@ -4,14 +4,17 @@
 class Player {
   int id;
   PImage playerImage;
-  float xPos;
-  float yPos;
+  float xPos; //WILL CHANGE xPos and yPos to be the "Go-to-here" location for each player pikachus
+  float yPos;//And make pikachu to always be drawn to the screen
+  float playerX = 40 * id;
+  float playerY = 40;
   float radius = 20;
   ArrayList<Bullet> bullets = new ArrayList<Bullet>();
   int myFrame = 0;
-  int health = 1000;
+  int health = 15;
 
-  Player(String imgName) {
+  Player(String imgName, int id) {
+    this.id = id;
     playerImage = loadImage(imgName);
     setCoordinatesToMouse();
   }
@@ -25,12 +28,18 @@ class Player {
     //updateBullets();
     //removeDeadBullets();
     drawPlayer();
+//    drawHealthPool();
     //drawBullets();
     checkBulletCollision(bullets);
     myFrame = (myFrame+1) % 10000;
     fill(255);
     textSize(15);
-    text("Health: " + health, xPos, yPos);
+//    text("Health: " + health, xPos, yPos); //HEALTH SHOWN AS TEXT UNDER THE PIKACHU
+  }
+  
+  void drawHealthPool(){
+    fill(id * 100, 200/id, 200);
+    rect(10, id * 30, (float)health/15 * 100, 20);
   }
 
   void drawPlayer() {
@@ -41,7 +50,14 @@ class Player {
 //    fill(0, 255, 0, 50);
 //    triangle(xPos-r, yPos+r, xPos, yPos-r, xPos+r, yPos+r);
     fill(255, 0, 0);
-    ellipse(xPos, yPos, radius, radius);
+//    ellipse(xPos, yPos, radius, radius);
+  }
+  
+  boolean checkLoss(){
+    if(this.health <= 0)
+      return true;
+     else
+       return false;
   }
 
   void updateBullets() {
@@ -81,7 +97,7 @@ class Player {
     }
   }
   
-  void setCoordinatesToMouse() {
+  void setCoordinatesToMouse() {//RECORDS THE COORDINATES OF THE GO-TO POINT FOR PIKACHUS
     xPos = mouseX;
     yPos = mouseY;
   }
